@@ -9,11 +9,11 @@ import org.aeonbits.owner.Config;
 public interface MobileConfig extends Config {
 
     @Key("device")
-    @DefaultValue("Samsung Galaxy S20")
+    @DefaultValue("Google Pixel 3")
     String getDevice();
 
     @Key("os_version")
-    @DefaultValue("12.0")
+    @DefaultValue("9.0")
     String getOsVersion();
 
     @Key("app_url")
