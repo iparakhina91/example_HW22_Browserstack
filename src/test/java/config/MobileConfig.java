@@ -19,4 +19,10 @@ public interface MobileConfig extends Config {
     @Key("app_url")
     String getApp();
 
+    @Key("appPackage")
+    String getAppPackage();
+
+    @Key("appActivity")
+    String getAppActivity();
+
 }
