@@ -18,9 +18,16 @@ public class BrowserstackMobileDriver implements WebDriverProvider {
     static MobileConfig mobileConfig = ConfigFactory.create(MobileConfig.class, System.getProperties());
     static AuthConfig authConfig = ConfigFactory.create(AuthConfig.class, System.getProperties());
 
-    @Nonnull
+    public static URL getAppiumServerUrl() {
+        try {
+            return new URL(authConfig.getRemoteUrl());
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
-    public WebDriver createDriver(@Nonnull Capabilities capabilities) {
+    public WebDriver createDriver(Capabilities capabilities) {
         MutableCapabilities mutableCapabilities = new MutableCapabilities();
         mutableCapabilities.merge(capabilities);
 
@@ -36,11 +43,7 @@ public class BrowserstackMobileDriver implements WebDriverProvider {
         mutableCapabilities.setCapability("build", "browserstack-build-1");
         mutableCapabilities.setCapability("name", "first_test");
 
-        try {
-            return new RemoteWebDriver(
-                    new URL(authConfig.getRemoteUrl()), mutableCapabilities);
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
+        return new RemoteWebDriver(
+                getAppiumServerUrl(), mutableCapabilities);
     }
 }
